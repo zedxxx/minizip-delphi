@@ -1,7 +1,7 @@
 {
    MiniZip project
 
-   Copyright (C) 2010-2019 Nathan Moinvaziri
+   Copyright (C) 2010-2020 Nathan Moinvaziri
      https://github.com/nmoinvaz/minizip
    Copyright (C) 2009-2010 Mathias Svensson
      Modifications for Zip64 support
@@ -21,6 +21,7 @@ unit libminizip;
 {$DEFINE MZ_ZLIB}
 {$DEFINE MZ_BZIP2}
 {$DEFINE MZ_LZMA}
+{.$DEFINE MZ_ZSTD}
 {.$DEFINE MZ_WZAES}
 
 interface
@@ -50,7 +51,7 @@ const
 {$ENDIF MZ_LZMA}
 
 const
-  MZ_VERSION = '2.8.8';
+  MZ_VERSION = '2.10.0';
 
   MZ_OK = 0;
 
@@ -99,6 +100,9 @@ const
   {$ENDIF}
   {$IFDEF MZ_LZMA}
   MZ_COMPRESS_METHOD_LZMA = 14;
+  {$ENDIF}
+  {$IFDEF MZ_ZSTD}
+  MZ_COMPRESS_METHOD_ZSTD = 93;
   {$ENDIF}
   {$IFDEF MZ_WZAES}
   MZ_COMPRESS_METHOD_AES = 99;
