@@ -19,6 +19,7 @@ rm -rf $prefix/share
 rm -rf $prefix/$dll
 
 sed -i 's/enable_language(C)$/enable_language(C) \nset(CMAKE_FIND_LIBRARY_SUFFIXES .a)/i' CMakeLists.txt
+sed -i 's/pkg_check_modules(LIBLZMA liblzma)$//i' CMakeLists.txt
 
 sed -i 's/set(ZSTD_TARGET libzstd_shared)/set(ZSTD_TARGET libzstd_static)/i' CMakeLists.txt
 
@@ -39,8 +40,8 @@ cmake . '-GMSYS Makefiles' \
         "-DMZ_BUILD_TEST=0" \
         "-DMZ_BUILD_UNIT_TEST=0" \
         "-DMZ_BUILD_FUZZ_TEST=0" \
-        "-DZLIB_FORCE_FETCH=0" \
-        "-DZSTD_FORCE_FETCH=1" \
+        "-DMZ_FETCH_LIBS=1" \
+        "-DMZ_FORCE_FETCH_LIBS=0" \
         "-DBUILD_SHARED_LIBS=1" \
         "-DCMAKE_BUILD_TYPE=Release" \
         "-DCMAKE_C_FLAGS=-static-libgcc" \
@@ -60,7 +61,7 @@ echo 'bin/*.*' > list.txt
 echo 'include/*.*' >> list.txt
 echo 'lib/*.*' >> list.txt
 
-7z a -tzip ../libminizip-2.10.0-win$arch-mingw.zip @list.txt
+7z a -tzip ../libminizip-2.10.6-win$arch-mingw.zip @list.txt
 
 rm -rf list.txt
 
