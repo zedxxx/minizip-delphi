@@ -1,8 +1,6 @@
-Delphi wrapper for [minizip](https://github.com/nmoinvaz/minizip) C library.
+Delphi wrapper for the [libminizip-ng](https://github.com/zlib-ng/minizip-ng) C library.
 
-Tested with Delphi 2007 and Delphi 10.3 Rio. 
+Supports Delphi 2007 and newer.
 
-`test` folder contains simple zip read/write program, use it as a simple usage example.
-
-`lib` folder contains scripts to build libminizip.dll from GitHub sources ([here](https://bintray.com/zed/generic/libminizip) is my compiled binaries).
-
+* The `test` folder contains a simple zip read/write test that you can use as a usage example.
+* The `lib` folder contains scripts to build `libminizip-ng.dll` from GitHub sources. Pre-compiled binaries can also be found in the Releases section.

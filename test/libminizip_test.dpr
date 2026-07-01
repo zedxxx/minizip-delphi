@@ -9,7 +9,7 @@ uses
 
 const
   CWriteCount = 100;
-  CTestFileSize = 200*1024;
+  CTestFileSize = 200 * 1024; // 200 kB
   CTestFileName = 'mz_delphi_test.zip';
 
 procedure DoTestWrite(const AData: Pointer; const ADataSize: int32_t);
@@ -27,7 +27,9 @@ begin
   VCompressLevel := MZ_COMPRESS_LEVEL_DEFAULT;
   VVolumSize := 0;
 
-  mz_check( mz_zip_writer_create(VWriter) );
+  VWriter := mz_zip_writer_create();
+
+  mz_check(VWriter);
   try
     mz_zip_writer_set_compress_method(VWriter, VCompressMethod);
     mz_zip_writer_set_compress_level(VWriter, VCompressLevel);
@@ -38,7 +40,7 @@ begin
       for I := 0 to CWriteCount - 1 do begin
         VFileNameInZip := mz_string_encode('MyFileName_' + IntToStr(I) + '.bin');
 
-        writeln('Writing file: ', mz_string_decode(VFileNameInZip));
+        Writeln('Writing file: ', mz_string_decode(VFileNameInZip));
 
         FillChar(VFileInfo, SizeOf(VFileInfo), 0);
 
@@ -72,7 +74,9 @@ begin
   VCount := 0;
   VDataSize := ADataSize;
 
-  mz_check( mz_zip_reader_create(VReader) );
+  VReader := mz_zip_reader_create();
+
+  mz_check(VReader);
   try
     VZipFileName := mz_string_encode(CTestFileName);
     mz_check( mz_zip_reader_open_file(VReader, @VZipFileName[1]) );
@@ -93,12 +97,12 @@ begin
           mz_check( mz_zip_reader_entry_save_buffer(VReader, AData, VDataSize) );
         end;
 
-        writeln( mz_string_decode(VFileInfo.filename), ', size: ',  VEntrySize);
+        Writeln( mz_string_decode(VFileInfo.filename), ', size: ',  VEntrySize);
         Inc(VCount);
 
         VErr := mz_zip_reader_goto_next_entry(VReader);
       end;
-      writeln('Total: ', VCount);
+      Writeln('Total: ', VCount);
     finally
       mz_check( mz_zip_reader_close(VReader) );
     end;
